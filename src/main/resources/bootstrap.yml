@@ -1,0 +1,30 @@
+# Tomcat
+server:
+  port: 9302
+# Spring profile active
+spring:
+  profiles:
+    active: dev
+  application:
+    # 应用名称
+    name: study-spring
+
+# https://sca.aliyun.com/en/docs/2022/user-guide/nacos/advanced-guide/
+  config:
+    import: optional:nacos
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+#      discovery:
+#        namespace: study-spring
+      config:
+        import-check:
+          enabled: false
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - data-id: application.${spring.cloud.nacos.config.file-extension}
+            refresh: true
+        namespace: study-spring
+
